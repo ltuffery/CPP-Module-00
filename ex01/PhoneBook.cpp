@@ -1,6 +1,8 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
-#include <cstddef>
+#include <cctype>
+#include <cstdio>
+#include <string>
 
 PhoneBook::PhoneBook( void ) {
 	this->contacts[0] = NULL;
@@ -12,6 +14,7 @@ PhoneBook::PhoneBook( void ) {
 	this->contacts[6] = NULL;
 	this->contacts[7] = NULL;
 	this->contacts[8] = NULL;
+	this->index = 0;
 }
 
 PhoneBook::~PhoneBook( void ) {
@@ -21,26 +24,65 @@ PhoneBook::~PhoneBook( void ) {
 }
 
 void PhoneBook::addContact(Contact *contact) {
-	int count;
-
-	count = this->countContact();
-	if (count == 8)
-	{
-		delete this->contacts[0];
-		for (int i = 0; i < count - 1; i++) {
-			this->contacts[i] = this->contacts[i + 1];
-		}
-		this->contacts[count - 1] = contact;
-	}
-	else
-		this->contacts[count] = contact;
+	if (this->index == 8)
+		this->index = 0;
+	if (this->contacts[this->index] != NULL)
+		delete this->contacts[this->index];
+	this->contacts[this->index] = contact;
+	this->index++;
 }
 
-int PhoneBook::countContact( void ) {
-	int	i;
+void PhoneBook::displayContact( void ) {
+	std::string firstName;
+	std::string lastName;
+	std::string nickname;
 
-	i = 0;
-	while (this->contacts[i] != NULL)
-		i++;
-	return i;
+	std::cout << "index     |first name|last name |nickname  \n";
+	for (int i = 0; this->contacts[i] != NULL; i++)
+	{
+		if (this->contacts[i]->getFirstName().length() > 10)
+			firstName = this->contacts[i]->getFirstName().substr(0, 9) + ".";
+		else
+			firstName = this->contacts[i]->getFirstName();
+		if (this->contacts[i]->getLastName().length() > 10)
+			lastName = this->contacts[i]->getLastName().substr(0, 9) + ".";
+		else
+		 	lastName = this->contacts[i]->getLastName();
+		if (this->contacts[i]->getNickName().length() > 10)
+			nickname = this->contacts[i]->getNickName().substr(0, 9) + ".";
+		else
+		 	nickname = this->contacts[i]->getNickName();
+		firstName.resize(10, ' ');
+		lastName.resize(10, ' ');
+		nickname.resize(10, ' ');
+		std::cout << i << "         |" << firstName << "|" << lastName << "|" << nickname << std::endl;
+	}
+}
+
+void PhoneBook::searchContact(std::string index) {
+	int n;
+
+	for (int i = 0; index[i] != '\0'; i++)
+	{
+		if (std::isalpha(index[i]))
+		{
+			std::cout << "the index can only have numbers" << std::endl;
+			return;
+		}
+	}
+	std::sscanf(index.c_str(), "%d", &n);
+	if (n < 7 && n > -1)
+	{
+		if (this->contacts[n] != NULL)
+		{
+			std::cout << "First name : " << this->contacts[n]->getFirstName() << std::endl;
+			std::cout << "Last name : " << this->contacts[n]->getLastName() << std::endl;
+			std::cout << "Nickname : " << this->contacts[n]->getNickName() << std::endl;
+			std::cout << "Phone number : " << this->contacts[n]->getPhoneNumber() << std::endl;
+			std::cout << "Darkest secret : " << this->contacts[n]->getDarkestSecret() << std::endl;
+			return ;
+		}
+	}
+	std::cout << "this index not exist" << std::endl;
+
 }

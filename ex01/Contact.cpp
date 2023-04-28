@@ -19,6 +19,10 @@ void Contact::setNickName(std::string nickName) {
 	this->nickName = nickName;
 }
 
+void Contact::setPhoneNumber(std::string phoneNumber) {
+	this->phoneNumber = phoneNumber;
+}
+
 void Contact::setDarkestSecret(std::string darkestSecret) {
 	this->darkestSecret = darkestSecret;
 }

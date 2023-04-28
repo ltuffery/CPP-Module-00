@@ -6,7 +6,7 @@
 #    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 19:13:27 by ltuffery          #+#    #+#              #
-#    Updated: 2023/04/25 20:03:49 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/04/28 16:33:38 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= phone_book
 
 CC		= c++
 
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
+CFLAGS	= -Wall -Wextra -Werror -g -std=c++98
 
 SRCS	= main.cpp \
 		  PhoneBook.cpp \
