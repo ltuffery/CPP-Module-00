@@ -3,6 +3,7 @@
 #include <cctype>
 #include <cstdio>
 #include <string>
+#include <iomanip>
 
 PhoneBook::PhoneBook( void ) {
 	this->contacts[0] = NULL;
@@ -37,7 +38,7 @@ void PhoneBook::displayContact( void ) {
 	std::string lastName;
 	std::string nickname;
 
-	std::cout << "index     |first name|last name |nickname  \n";
+	std::cout << "     index|first name| last name|  nickname\n";
 	for (int i = 0; this->contacts[i] != NULL; i++)
 	{
 		if (this->contacts[i]->getFirstName().length() > 10)
@@ -52,10 +53,10 @@ void PhoneBook::displayContact( void ) {
 			nickname = this->contacts[i]->getNickName().substr(0, 9) + ".";
 		else
 		 	nickname = this->contacts[i]->getNickName();
-		firstName.resize(10, ' ');
-		lastName.resize(10, ' ');
-		nickname.resize(10, ' ');
-		std::cout << i << "         |" << firstName << "|" << lastName << "|" << nickname << std::endl;
+		std::cout << std::setw(10) << i << "|";
+		std::cout << std::setw(10) << firstName << "|";
+		std::cout << std::setw(10) << lastName << "|";
+		std::cout << std::setw(10) << nickname << std::endl;
 	}
 }
 
