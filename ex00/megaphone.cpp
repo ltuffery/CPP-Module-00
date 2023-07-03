@@ -18,8 +18,9 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	for (int i = 1; i < ac; i++) {
-		for (size_t j = 0; j < std::strlen(av[i]); j++) {
-			std::cout << toUpper(av[i][j]);
+		std::string word = av[i];
+		for (size_t j = 0; j < word.length(); j++) {
+			std::cout << (unsigned char)std::toupper(word[j]);
 		}
 	}
 	std::cout << std::endl;
