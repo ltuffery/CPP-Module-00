@@ -71,6 +71,11 @@ void PhoneBook::searchContact(std::string index) {
 			return;
 		}
 	}
+	if (index.empty())
+	{
+		std::cout << "this index not exist" << std::endl;
+		return;
+	}
 	std::sscanf(index.c_str(), "%d", &n);
 	if (n < 7 && n > -1)
 	{
@@ -85,5 +90,4 @@ void PhoneBook::searchContact(std::string index) {
 		}
 	}
 	std::cout << "this index not exist" << std::endl;
-
 }
